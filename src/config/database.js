@@ -12,7 +12,7 @@ const db = new Pool({
 const createTable = async () => {
     try {
         fs.writeFileSync('./data.sql', 'CREATE TABLE users(...);', 'utf8');
-        await db.query('Conexion de la base de datos exitoso');
+        console.log('Conexion de la base de datos exitoso');
     } catch (error) {
         console.log('Error al inicializar la base de datos ', error);
     } finally {
