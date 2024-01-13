@@ -1,22 +1,14 @@
-
-const { Pool } = require('pg');
-
-require('dotenv').config();
-
-
-const db = new Pool({
-    connectionString: process.env.DATABASE_URI,
-});
-
-
 const createTable = async () => {
+    let client;
     try {
+        client = await db.connect();
 
-        const result = await db.query('SELECT to_regclass(\'users\')');
+
+        const result = await client.query('SELECT to_regclass(\'users\')');
 
 
         if (!result.rows[0].to_regclass) {
-            await db.query(`
+            await client.query(`
                 CREATE TABLE users (
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(50),
@@ -35,12 +27,13 @@ const createTable = async () => {
         console.error('Error al crear la tabla "users":', error);
     } finally {
 
-        await db.end();
+        if (client) {
+            client.release();
+        }
+
     }
 };
 
-
 createTable();
-
 
 module.exports = db;
