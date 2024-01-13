@@ -14,8 +14,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 //routes
-
-app.use('/api/v1', require('./src/router/index'))
+app.use('/api/v1/', require('./src/router/index'))
+app.get('/', (req, res) => {
+    res.send('Welcome')
+})
 
 app.listen(PORT)
 console.log(`Server running in port ${PORT}`)
