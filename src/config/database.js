@@ -23,5 +23,5 @@ const createTable = async () => {
         }
     }
 };
-
-module.exports = { db, createTable };
+createTable();
+module.exports = db;
