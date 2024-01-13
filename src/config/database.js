@@ -1,3 +1,13 @@
+
+const { Pool } = require('pg');
+
+require('dotenv').config();
+
+
+const db = new Pool({
+    connectionString: process.env.DATABASE_URI,
+});
+
 const createTable = async () => {
     let client;
     try {
@@ -37,3 +47,4 @@ const createTable = async () => {
 createTable();
 
 module.exports = db;
+
